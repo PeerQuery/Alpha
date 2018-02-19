@@ -1,0 +1,532 @@
+
+
+
+
+
+<div class="ui fixed inverted menu">
+    <div class="ui container">
+	  
+	  
+	  
+		<div class="ui tiny-view item" style="display:none">
+			<div class="content">
+		<div class="ui inline dropdown">
+			<div class="text">
+				<i class="sidebar icon"></i>
+			</div>
+		<i class="dropdown icon"></i>
+			<div class="menu">
+				<a class="active item" href="/" >
+					<img class="ui avatar image" src="/assets/img/logo.png">
+					Home
+				</a>
+				<a class="item" href="/proposals" >
+					<i class="handshake icon"></i>
+					Proposals
+				</a>
+				<a class="item" href="/contests" >
+					<i class="game icon"></i>
+					Contests
+				</a>
+				<a class="item" href="/questions" >
+					<i class="help circle outline icon"></i>
+					Questions
+				</a>
+				<a class="item" href="/quizzes" >
+					<i class="pointing up icon"></i>
+					Quizzes
+				</a>
+				<a class="item" href="/gigs" >
+					<i class="money icon"></i>
+					Gigs
+				</a>
+				<a class="item" href="/tags" >
+					<i class="tags icon"></i>
+					Tags
+				</a>
+			</div>
+		</div>
+		</div>
+		</div>
+	
+      <a href="/" id="home-page" class="header hide-on-tiny item" title="Home">
+        <img class="logo" src="/assets/img/logo.png">
+        <span class="desktop-only">Alpha</span>
+      </a>
+	  
+		<a href="/proposals" id="proposals-page" class="hide-on-tiny item" title="Proposals">
+			<i class="handshake icon" id=""></i>
+			<span class="desktop-only">Proposals</span>
+		</a>
+			
+		<a href="/contests" id="contests-page" class="hide-on-tiny item" title="Contests">
+			<i class="game icon" id=""></i>
+			<span class="desktop-only">Contests</span>
+		</a>
+		
+		<a href="/questions" id="questions-page" class="hide-on-tiny item" title="Questions">
+			<i class="help circle outline icon" id=""></i>
+			<span class="desktop-only">Questions</span></a>
+		
+		<a href="/quizzes" id="quizzes-page" class="hide-on-tiny item" title="Quizzes">
+			<i class="pointing up icon" id=""></i>
+			<span class="desktop-only">Quizzes</span>
+		</a>
+		
+		<a href="/gigs" id="gigs-page" class="hide-on-tiny item" title="Gigs">
+			<i class="money icon" id=""></i>
+			<span class="desktop-only">Gigs</span>
+		</a>
+		
+		<a href="/tags" id="tags-page" class="hide-on-tiny item" title="Tags">
+			<i class="tags icon" id=""></i>
+			<span class="desktop-only">Tags</span>
+		</a>
+		
+		
+	  
+        <div class="right item">
+          <a class="ui inverted button" id="signin-desktop">
+			<i class="" id="write-icon"></i>
+			<span class="desktop-only" id="signin_state">Login</span>
+		  </a>
+          <a class="ui inverted button" href="https://signup.steemit.com/" target="_blank" id="signup-desktop">
+			<i class="add user icon" id="write-icon"></i>
+			<span class="desktop-only">Sign Up</span>
+		  </a>
+		
+		<span class="leftspace" id="loggedin-desktop-options" style="display:none">
+		<div class="ui inline dropdown">
+		
+		<div class="text">
+			<img class="ui avatar image" id="logged_in_user_img" src="/assets/img/avatar.png">
+		</div>
+		
+		<i class="dropdown icon"></i>
+		
+		<div class="menu">
+		<a class="item" id="logged_in_user_href">
+			<i class="user icon"></i>
+			Account
+		</a>
+		<a class="item" id="logged_in_user_feed">
+			<i class="rss icon"></i>
+			Feed
+		</a>
+		<a class="item" id="logged_in_user_community">
+			<i class="users icon"></i>
+			Community
+		</a>
+		<a class="item" id="logged_in_user_wallet">
+			<i class="dollar icon"></i>
+			Wallet
+		</a>
+		<a class="item" onClick="logOut()">
+			<i class="sign out icon"></i>
+			Logout
+		</a>
+		</div>
+		</div>
+		</span>
+		
+		
+		
+		  
+		  <a class="leftspace desktop-only" href="/@peerquery" title="See what's new!">
+			<i class="circular inverted yellow fire icon"></i>
+		  </a>
+		  
+		  
+		  
+		
+		
+		
+        </div>
+		
+		
+    </div>
+  </div>
+
+  
+    
+<script>
+	//
+	
+	
+	//------- Set the "active" class to the active page
+	
+	var path = window.location.pathname;
+	//var page = path.substr(path.indexOf("/") + 1);
+	
+	//console.log(path);
+
+	if (path == "/") document.getElementById("home-page").classList.add("active");
+	if (path == "/proposals") document.getElementById("proposals-page").classList.add("active");
+	if (path == "/contests") document.getElementById("contests-page").classList.add("active");
+	if (path == "/questions") document.getElementById("questions-page").classList.add("active");
+	if (path == "/quizzes") document.getElementById("quizzes-page").classList.add("active");
+	if (path == "/gigs") document.getElementById("gigs-page").classList.add("active");
+	if (path == "/tags") document.getElementById("tags-page").classList.add("active");
+	
+	
+	
+	
+	
+//general authentication system for all pages
+
+	steem.api.setOptions({ url: 'https://api.steemit.com' });
+	
+var cook = false;
+var pURL = "";
+
+if (window.location.pathname.indexOf('tags/') == -1 && window.location.pathname.indexOf('@') == -1) {
+	pURL = window.location.protocol + "//" + window.location.hostname + window.location.pathname;
+} else if (window.location.pathname.indexOf('tags/') > 0) {
+	pURL = window.location.protocol + "//" + window.location.hostname + "/tags";
+	
+} else if (window.location.href.indexOf('@') > 0) {
+	
+	pURL = window.location.protocol + "//" + window.location.hostname + "/me";
+	
+	/*
+	var abc = window.location.href.substring(window.location.href.indexOf('@'));
+	
+	if (abc.indexOf('/') > 0) pURL = window.location.protocol + "//" + window.location.hostname + "/";
+	
+	console.log(pURL);
+	*/
+	
+} else {
+	pURL = window.location.protocol + "//" + window.location.hostname + "/";
+} 
+
+	//console.log(pURL);
+	
+	
+sc2.init({
+  
+  //baseURL: 'https://v2.steemconnect.com',
+  app: 'peerquery.app',
+  callbackURL: pURL,
+  accessToken: '',
+  scope: ['vote', 'comment', 'custom_json']
+  
+});
+  
+	let activeUser = "";
+	let isAuth;
+	let state = "";
+	var authLink = sc2.getLoginURL(state);
+	var account = "";
+	//console.log(authLink);
+
+
+
+
+
+function readCookie(name) {
+	var nameEQ = name + "=";
+	var ca = document.cookie.split(';');
+	for(var i=0;i < ca.length;i++) {
+		var c = ca[i];
+		while (c.charAt(0)==' ') c = c.substring(1,c.length);
+		if (c.indexOf(nameEQ) == 0) return c.substring(nameEQ.length,c.length);
+	}
+	return null;
+}
+
+
+
+function authState() {
+	
+if (location.search != "") { // parse URI only when the query string is NOT empty OR page is NOT the search page
+	var urlParams;
+	(window.onpopstate = function () {
+		var match,
+			pl     = /\+/g,  // Regex for replacing addition symbol with a space
+			search = /([^&=]+)=?([^&]*)/g,
+			decode = function (s) { return decodeURIComponent(s.replace(pl, " ")); },
+			query  = window.location.search.substring(1);
+
+			urlParams = {};
+		while (match = search.exec(query))
+			urlParams[decode(match[1])] = decode(match[2]);
+	})();
+}
+	
+	
+	
+	
+//get the Cookie: SC2A
+
+if (readCookie("SC2A") != null) cook = true;
+
+	
+	
+function checkCookie() {	
+	
+if (cook == false && urlParams == "") {
+	//console.log("logged out!");
+	isAuth = false; // return false;
+} else if (cook != false && urlParams == "") {
+	//console.log("already logged in");
+	isAuth = true;  //return true;
+		getAuth();
+} else if (cook != false && urlParams != "") {
+	//console.log("Just logged in");
+	isAuth = true;  //return true;
+		getAuth();
+			if(location.hash != undefined && location.hash != null && location.hash != "") {
+		history.replaceState(null, null, location.pathname + location.hash);
+			} else {
+	history.replaceState(null, null, location.pathname);
+		}
+}	else if (cook == false && urlParams != undefined) {
+	//console.log("logging you in");
+	isAuth = true;  //return true;
+		if(setAuth()) {
+	//console.log("completed!");
+			if(location.hash != undefined && location.hash != null && location.hash != "") {
+		history.replaceState(null, null, location.pathname + location.hash);
+			} else {
+	history.replaceState(null, null, location.pathname);
+			}
+		};
+}
+	
+}
+	
+checkCookie();	
+	
+	
+	
+function setCookie(nom, str, sec) {
+    var d = new Date();
+    d.setTime(d.getTime() + (sec*1000));
+    var expires = "expires=" + d.toUTCString();
+    document.cookie = nom + "=" + str + " ; " + expires;
+    if(readCookie("SC2A") != null)
+        return true;
+}
+
+
+function getAuth() {
+
+    if(readCookie("SC2A") != null) {
+		
+		//var authString = document.cookie.substring(15);
+		
+		//if (authString.indexOf(';') > -1) authString = authString.substr(0, authString.indexOf(';'));
+	
+        var authInfo = readCookie("SC2A");
+        authInfo = window.atob(authInfo);
+        authInfo = JSON.parse(authInfo);
+		
+		accessToken = authInfo.access_token;
+		sc2.setAccessToken(accessToken);
+		//expiresIn = authInfo.expires_in;
+		account = authInfo.username;
+		
+		activeAccount = authInfo.username;
+		//document.getElementById("name").innerText = account;
+		
+		isAuth = true;
+		//console.log("logged in");
+		
+        
+		return true;
+	
+	} else {
+
+		isAuth = false;
+		//console.log("logged out");
+		return false;
+	
+	}
+}
+
+
+function setAuth() {
+	
+    var authObject = {access_token : urlParams.access_token, username : urlParams.username};
+    var authString = JSON.stringify(authObject);
+    authString = window.btoa(authString);	//only to obstruct the auth token from literal rendering - hackers please keep your hands off!!!
+	var cookieName = "SC2A";
+    
+    if(setCookie(cookieName, authString, urlParams.expires_in)) {
+		
+		//function to hide the login query string OR redirect to hide query string
+		if(getAuth()) {
+			return true;
+		};
+	}
+	
+}  
+  	
+	
+}
+
+
+
+authState(); //let auth = authState();	//let authState = getAuth();
+
+  
+function logOut() {
+      sc2.revokeToken(function (err, result) {
+        //console.log('You successfully logged out', err, result);
+      });
+	
+	//deleteCookie(); //delete cookie to remove old token
+	
+	if (deleteCookie()) {
+		if (window.location.pathname == "/me") {
+			window.location.href = "/";
+		} else {
+			location.reload();
+		}
+	};
+};
+
+  
+
+function deleteCookie() {
+	//console.log("current cookie is: " + document.cookie.substring(15));
+	
+    var exp= 1;
+    
+    var d = new Date();
+    d.setTime(d.getTime() - (exp*24*60*60*1000));
+    var expT = "expires="+d.toUTCString();
+    document.cookie = "SC2A" + "=" + ";" + expT + "; path=/;";
+	//console.log("done");
+	//console.log(document.cookie);
+	
+	return true;
+}
+  
+  
+  
+  //console.log(isAuth);
+
+
+if (isAuth == true) {
+
+
+	//document.getElementById('signin-desktop').onclick = function write();
+	document.getElementById('signin-desktop').href = "/publish";
+	document.getElementById('signin_state').innerText = "Post";
+	document.getElementById('write-icon').className = "write icon";
+	
+	
+	document.getElementById('loggedin-desktop-options').style.display = "block";
+	document.getElementById('signup-desktop').style.display = "none";
+	
+    document.getElementById("logged_in_user_href").href = "/@" + account;
+    document.getElementById("logged_in_user_feed").href = "/@" + account + "/feed";
+    document.getElementById("logged_in_user_community").href = "/@" + account + "/community";
+    document.getElementById("logged_in_user_wallet").href = "/@" + account + "/wallet";
+    document.getElementById("logged_in_user_img").src = "https://img.busy.org/@" + account;
+	
+
+} else {
+	
+	
+	//document.getElementById('signin-desktop').onclick = "";
+	document.getElementById('signin-desktop').href = authLink;
+	document.getElementById('signin_state').innerText = "Sign in";
+	document.getElementById('write-icon').className = "sign in icon";
+	
+
+}
+
+
+
+
+
+
+
+console.log('%cSTOP! PROCEED WITH CAUTION!', 'color: red; font-size: 30px; font-weight: bold;');
+console.log('%cThis is the developer console!!!', 'color: red; font-size: 20px; font-weight: bold;');
+console.log('%cANY ACTIVITY HERE COULD POTENTIALLY COMPROMISE YOUR ACCOUNT!!!', 'color: red; font-size: 20px; font-weight: bold;');
+
+
+$('.ui.dropdown')
+  .dropdown()
+;
+
+
+
+function newCookie(name,value,days) {
+	if (days) {
+		var date = new Date();
+		date.setTime(date.getTime()+(days*24*60*60*1000));
+		var expires = "; expires="+date.toGMTString();
+	}
+	else var expires = "";
+	document.cookie = name+"="+value+expires+"; path=/";
+}
+
+
+  
+  
+	if (window.location.href.indexOf('@') > 0) {
+		
+		newCookie("PP", window.location.href, 7);
+	} else {
+		if (path != "/me") document.cookie = "PP=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+	
+	}
+
+  
+
+
+   
+  $(document).ready(function() {
+	
+      $('.ui.menu .ui.dropdown').dropdown({
+        on: 'hover'
+      });
+      $('.ui.menu a.item')
+        .on('click', function() {
+          $(this)
+            .addClass('active')
+            .siblings()
+            .removeClass('active')
+          ;
+        });
+		
+		
+		
+		if(window.location.pathname == "/me" && account != "") { 
+			
+			if (readCookie("PP") != null) {
+				var ru = readCookie("PP");
+				
+				document.cookie = "PP=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+				
+				console.log(ru);
+				
+				window.location.href = ru;
+			} else {
+				window.location.href = "/@" + account;
+				//console.log("not post");
+			}
+			
+		} else if(window.location.pathname == "/me" && account == "") {
+			window.location.href = "/";
+		}
+		
+		
+  });
+				
+				
+				//console.log(document.cookie);
+				
+				
+//register new user
+
+
+
+</script>
+
+
