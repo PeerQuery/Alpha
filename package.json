@@ -1,0 +1,22 @@
+{
+  "name": "peerquery-alpha",
+  "version": "1.0.0",
+  "description": "Steem powered Query platform",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "steem",
+    "question",
+    "collaborate"
+  ],
+  "author": "makafui george dzivenu",
+  "license": "MIT",
+  "dependencies": {
+    "body-parser": "^1.18.2",
+    "express": "^4.16.2",
+    "sitemap": "^1.13.0",
+    "steem": "^0.7.1"
+  }
+}
