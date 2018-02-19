@@ -70,5 +70,5 @@ Coming soon.
 
 
 ## Recommendation
-Contributors are welcome, however if kindly use https://utopian.io to contribute.
+Contributors are welcome, you kight want to use https://utopian.io to contribute.
 
