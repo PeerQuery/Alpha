@@ -1,5 +1,5 @@
 # Alpha(based on the same architecture as V2)
-Alpha version of Peer Query
+Alpha version of Peer Query > See the wiki for the terms of use, terms of contribution as and more: https://github.com/PeerQuery/Alpha/wiki
 
 
 ## How to run it
