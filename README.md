@@ -65,8 +65,8 @@ Do whatever you want with it. You are responsible for whatever you do with it.
 * Visit (http://localhost) or (http://localhost:80) to see Peer Query running
 
 
-## Full documentation
-Coming soon.
+## Documentation series
+#1 https://utopian.io/utopian-io/@dzivenu/peer-query-documentation-how-the-sc2-login-system-works
 
 
 ## Recommendation
